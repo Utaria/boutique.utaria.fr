@@ -16,8 +16,8 @@ $config = array(
     "api_token" => "r8huBnSFK8qc4Kuq5Ke3ehgBDcm9HjAB8RLUuPkyqypzXGupbz",
 
     "title" => array(
-        "template" => "Utaria | %s",
-        "default"  => "Serveur minecraft innovant"
+        "template" => "Boutique Utaria | %s",
+        "default"  => "Faites le plein d'exclusivités !"
     ),
 
     "devMode"  => false,
