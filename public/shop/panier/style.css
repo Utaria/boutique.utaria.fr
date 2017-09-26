@@ -1,0 +1,151 @@
+body
+{
+	margin: 0;
+	font-family: sans-serif;
+}
+.basket
+{
+	width: 750px;height: 350px;
+	margin-left: 35%;margin-top: 10%;
+}
+.basket table
+{
+	width: 100%;
+	margin-top: 55px;
+	font-size: 23px;
+}
+.basket table thead tr th
+{
+	font-weight: normal;
+	text-align: left;
+	font-size: 29px;
+	/*border-bottom: 2px solid black;*/
+}
+.basket table thead tr th:nth-child(2),
+.basket table thead tr th:nth-child(3)
+{
+	text-align: center;
+}
+.basket table thead tr th:nth-child(1)
+{
+	width: 400px;
+}
+.basket table tbody tr td
+{
+	height: auto;
+}
+.basket table tbody tr td:nth-child(2),
+.basket table tbody tr td:nth-child(3)
+{
+	text-align: center;
+}
+.basket table tbody tr td span
+{
+	position: relative;
+	width: 70px;
+	height: 25px;
+	display: inline-block;
+	font-size: 18px;
+	margin-right: 10px;
+	padding: 2px;
+	top: -3px;
+	text-align: center;
+	line-height: 25px;
+	color: #FFF;
+	border-radius: 3px;
+	cursor: pointer;
+}
+.basket table tbody tr td a
+{
+	color: #000000;
+	text-decoration: none;
+}
+.basket table tbody tr td a:hover
+{
+	text-decoration: underline;
+}
+.basket table tbody tr td .booster
+{
+	background: #3498db;
+}
+.basket table tbody tr td .rank
+{
+	background: #f1c40f;
+}
+.basket .total
+{
+	position: relative;
+	width: 190px;height: 75px;
+	float: right;
+	margin-right: 15px;
+	text-align: center;
+	line-height: 75px;
+	font-size: 26px;
+	background-color: #ecf0f1;
+}
+.basket .total .txt
+{
+	font-size: 23px;
+}
+.basket .promotions
+{
+	position: relative;
+	width: 225px;height: 40px;
+	margin-top: 35px;
+}
+.basket .promotions input
+{
+	float: left;
+}
+.basket .promotions input[type="text"]
+{
+	width: 185px;height: 100%;
+	border: 3px solid #cecece;
+	border-radius: 3px;
+	border-right: none;
+	padding-left: 5px;
+	outline: none;
+	font-size: 18px;
+}
+.basket .promotions input[type="submit"]
+{
+	width: 40px;height: 100%;
+	margin-left: -2px;
+	border: 3px solid #cecece;
+	background-color: #FFF;
+	outline: none;
+}
+.basket .check
+{
+	width: 175px;height: 65px;
+	margin-top: 15px;margin-left: calc(100% - 175px - 15px);
+	background-color: #26d653;
+	color: #FFF;
+	font-size: 28px;
+	border: none;
+	outline: none;
+}
+.basket tbody tr td input[type="number"]
+{
+	width: 60px;height: 30px;
+	margin-left: 47px;
+	border: none;
+	outline: none;
+	font-size: 26px;
+}
+.basket .links
+{
+	width: auto;height: auto;
+	float: right;
+	margin-right: 15px;margin-top: 10px;
+}
+.basket .links a
+{
+	font-size: 17px;
+	color: #3498db;
+	text-decoration: none;
+}
+.basket .links a:hover
+{
+	text-decoration: underline;
+}
