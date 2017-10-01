@@ -77,7 +77,6 @@
 					<a href="<?= $Html->href("grades") ?>" title="Les grades">Grades</a>
 					<a href="<?= $Html->href("boosters") ?>" title="Les boosters">Boosters</a>
 					<a href="<?= $Html->href("cosmetiques") ?>" title="Les cosmétiques">Cosmétiques</a>
-					<a href="<?= $Html->href("apropos") ?>" title="A propos">À propos</a>
 				</nav>
 			</div>
 		</section>
@@ -144,5 +143,9 @@
 	<?= $Html->js("clipboard") ?>
 	<?= $Html->js("app") ?>
 	<?= $Html->js("boutique") ?>
+<?php if ($view_name == "panier"): ?>
+	<?= $Html->js("panier") ?>
+<?php endif; ?>
+
 </body>
 </html>

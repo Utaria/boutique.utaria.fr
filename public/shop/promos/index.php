@@ -24,9 +24,9 @@ if(isset($_POST["check"])){
     $values = $req->fetch();
 
     if(strtotime($values["expiration_date"]) >= time()){
-      
+      echo "Good !";
     }else{
-
+      echo "Euh...? :(";
     }
 
   }

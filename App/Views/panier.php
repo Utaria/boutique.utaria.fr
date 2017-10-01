@@ -1,77 +1,70 @@
 <div class="wrap-inner col-group content">
 	<h1 class="title">Votre panier</h1>
 
-	<table class="products" cellspacing="0" cellpadding="0">
+	<table class="products" data-qty-href="<?= $Html->href("panier/changeqty") ?>" cellspacing="0" cellpadding="0">
 		<thead>
 			<tr>
-				<th>Nom</th>
+				<th>Article</th>
+				<th>Prix unitaire TTC</th>
 				<th>Quantité</th>
-				<th>Prix</th>
-				<th></th>
+				<th>Prix TTC</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td>
-					<span class="cat booster">Booster</span>
-					<a href="#">Booster (x3)</a>
-				</td>
-				<td>1</td>
-				<td>5.00€</td>
-				<td>
-					<div class="rm-btn"><i class="fa fa-times"></i></div>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<span class="cat rank">Grade</span>
-					<a href="#">Grade Utarien</a>
-				</td>
-				<td>1</td>
-				<td>7.00€</td>
-				<td>
-					<div class="rm-btn"><i class="fa fa-times"></i></div>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<span class="cat booster">Booster</span>
-					<a href="#">Grade VIP</a>
-				</td>
-				<td><input class="quantity" type="number" value="1" min="1" max="10"></td>
-				<td>15.00€</td>
-				<td>
-					<div class="rm-btn"><i class="fa fa-times"></i></div>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<span class="cat booster">Booster</span>
-					<a href="#">Booster (x1)</a>
-				</td>
-				<td><input class="quantity" type="number" value="1" min="1" max="10"></td>
-				<td>35.00€</td>
-				<td>
-					<div class="rm-btn"><i class="fa fa-times"></i></div>
-				</td>
-			</tr>
-
+			<?php foreach ($articles as $article): ?>
+				<tr data-product-id="<?= $article->id ?>">
+					<td>
+						<!-- <span class="cat booster">Booster</span> -->
+						<a href="#"><?= $article->name ?></a>
+					</td>
+					<td class="u-price c">
+						<span><?= $article->price ?></span> €
+					</td>
+					<td class="c" qty-selector>
+						<span><?= $article->qty ?></span>
+					</td>
+					<td class="c-price c">
+						<span><?= $article->cartPrice ?></span> €
+					</td>
+				</tr>
+			<?php endforeach ?>
 		</tbody>
 	</table>
 
 	<div class="basket-action-container">
 		<div class="col-group">
 			<div class="col-4">
-				<form action="" class="promo-form">
-					<input type="text" placeholder="Code promotionnel">
+				<form action="<?= $Html->href("panier/promotionalcode") ?>" method="POST" class="promo-form">
+					<input type="text" placeholder="Code promotionnel"<?php if ($promoCode != null): echo " value='$promoCode'"; endif; ?>>
 					<button type="submit"><i class="fa fa-angle-right"></i></button>
 				</form>
+				<span class="error"></span>
 				<div class="links">
 					<a href="#">Conditions de ventes</a>
 				</div>
 			</div>
 			<div class="col-8">
-				<div class="total"><span class="txt">Total :</span> 65.00€</div>
+				<table class="total">
+					<tr class="b">
+						<td>Total de vos achats</td>
+						<td>
+							<span class="total-products-price"><?= $cartTotal ?></span> €
+						</td>
+					</tr>
+					<tr class="promo hidden">
+						<td>
+							Code promotionnel <span class="code"></span> <span class="rm-code"><i class="fa fa-times"></i></span>
+						</td>
+						<td class="reduc"></td>
+					</tr>
+					<tr class="b">
+						<td>Total avec remise</td>
+						<td>
+							<span></span> €
+						</td>
+					</tr>
+					<tr><td></td><td></td></tr>
+				</table>
 				<div class="clear"></div>
 
 				<button type="submit" class="submit">

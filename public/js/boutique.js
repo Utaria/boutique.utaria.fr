@@ -1,3 +1,6 @@
+/*------------------------------------*/
+/*----- BOUTON D'ACCÈS AU PANIER -----*/
+/*------------------------------------*/
 var cartBtn = document.querySelector(".shop-cart-summary .cart-header");
 
 cartBtn.addEventListener("click", function(event) {
