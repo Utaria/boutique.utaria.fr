@@ -13,13 +13,13 @@ class PanierController extends Controller {
 		session_start();
 
 		// unset($_SESSION["shopcart"]);
+		$fillEmpty = true;
 
-		if (!isset($_SESSION["shopcart"]) && !isset($_SESSION["shopcart"]["products"]))
+		if (!isset($_SESSION["shopcart"]) && !isset($_SESSION["shopcart"]["products"]) || (empty($_SESSION["shopcart"]["products"]) && $fillEmpty))
 			$_SESSION["shopcart"]["products"] = array(
-				"p_3" => 1,
+				"p_3" => 2,
 				"p_4" => 1,
-				"p_5" => 3,
-				"p_1" => 1
+				"p_2" => 1
 			);
 
 		$articles    = array();
@@ -106,7 +106,13 @@ class PanierController extends Controller {
 		if (empty($prods) || !isset($prods["p_$pId"]))
 			die(json_encode(array("error" => "Produit inexistant")));
 
-		$_SESSION["shopcart"]["products"]["p_$pId"] = $qty;
+		// Si la quantité est positive, on met à jour sinon,
+		// sinon on supprime le produit en session.
+		if ($qty > 0)
+			$_SESSION["shopcart"]["products"]["p_$pId"] = $qty;
+		else
+			unset($_SESSION["shopcart"]["products"]["p_$pId"]);
+
 		die("good");
 	}
 

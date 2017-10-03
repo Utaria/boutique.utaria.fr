@@ -26,7 +26,7 @@
 	<link rel="icon" type="image/png" href="<?= $Html->srcImg("favicon.png") ?>" />
 
 	<?= $Html->css("https://fonts.googleapis.com/css?family=Lato:400,700,900|Open+Sans:400,700") ?>
-	<?= $Html->css("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css") ?>
+	<?= $Html->css("fa") ?>
 	<?= $Html->css("grid") ?>
 	<?= $Html->css("style") ?>
 	<?= $Html->css("boutique") ?>
@@ -42,22 +42,24 @@
 					Bienvenue dans notre <span>boutique</span> !
 				</div>
 				<nav class="navigation-header">
+					<?php
+					$cart = App\Helper\SessionCart::getInstance();
+					?>
 					<div class="btn btn-primary shop-cart-summary" title="Panier">
 						<div class="cart-header">
 							<i class="fa fa-shopping-cart cart-symb"></i>Votre Panier
-							<span class="badge">3</span>
-							<span class="balance">25.56€</span>
+							<span class="badge"><?= $cart->getSize() ?></span>
+							<span class="balance"><?= number_format($cart->getTotal(), 2) ?>€</span>
 						</div>
 						<div class="cart-content">
-							<div class="product">
-								<span class="name">Booster [3]</span>
-								<span class="qty">x1</span>
-								<span class="price">5.56€</span>
-							</div>
-							<div class="product">
-								<span class="name">Chevalier</span>
-								<span class="qty">x2</span>
-								<span class="price">10.00€</span>
+							<div class="cart-products">
+								<?php foreach ($cart->getArticles() as $art): ?>
+									<div class="product">
+										<span class="name"><?= $art->name ?></span>
+										<span class="qty">x<?= $art->qty ?></span>
+										<span class="price"><?= number_format($art->cartPrice, 2) ?>€</span>
+									</div>
+								<?php endforeach ?>
 							</div>
 
 							<a href="<?= $Html->href("panier") ?>" title="Accéder au panier"><div class="button">Voir le panier</div></a>

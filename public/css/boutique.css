@@ -97,6 +97,13 @@ header section.upper .btn.shop-cart-summary.opened i.fa.cart-symb {
 	width: 100%;height: calc(100% - 45px);
 	overflow: hidden;
 }
+.shop-cart-summary .cart-content .cart-products {
+	display: block;position: relative;
+	width: 100%;height: 90px;
+
+	overflow-x: hidden;
+	overflow-y: auto;
+}
 .shop-cart-summary .cart-content .product {
 	display: block;position: relative;
 	padding: 6px 18px;
@@ -203,12 +210,27 @@ table.products thead tr th {
 }
 table.products thead tr th:nth-child(2),
 table.products thead tr th:nth-child(3) { text-align: center; }
+table.products thead tr th:last-child {
+	width: 40px;
+}
 table.products thead tr th:nth-child(1) { width: 400px; }
 table.products tbody tr:nth-child(2n) { background: #F4F8F9; }
 table.products tbody tr td {
 	height: 40px;
 }
 table.products tbody tr td:first-child { padding-left: 15px; }
+table.products tbody tr td:last-child {
+	text-align: center;
+	
+	font-size: .9em;
+	color: #e74c3c;
+}
+table.products tbody tr td:last-child i.fa { transition: ease-out .1s; }
+table.products tbody tr td:last-child i.fa:hover {
+	transform: scale(1.2) rotate(5deg);
+	cursor: pointer;
+	color: #c0392b;
+}
 table.products tbody tr td a {
 	color: #000000;
 	text-decoration: none;

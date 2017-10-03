@@ -12,6 +12,7 @@ Panier.prototype = {
 
 	init: function() {
 		this.initQtySelectors();
+		this.initRemoveSelectors();
 		this.initPromoForm();
 	},
 
@@ -195,6 +196,55 @@ Panier.prototype = {
 	},
 
 
+	/* ------------------------------ */
+	/* -- Suppression d'un produit -- */
+	/* ------------------------------ */
+	initRemoveSelectors: function() {
+		var self        = this;
+		var rmSelectors = document.querySelectorAll(".products .remove");
+		var submitBtn   = document.querySelector("button.submit");
+		var noPdctError = document.querySelector(".noproduct");
+
+		for (var rmSel of rmSelectors)
+			rmSel.addEventListener("click", function(event) {
+				event.preventDefault();
+
+				var row = this.parentNode.parentNode;
+				var pId = parseInt(row.dataset.productId);
+				row.parentNode.removeChild(row);
+
+				// Requête XHR pour supprimer le produit de la session
+				var xhr  = self.newXMLHttpRequest();
+				var href = document.querySelector(".products").dataset.qtyHref;
+
+				xhr.open("POST", href, true);
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				xhr.send("product_id=" + pId + "&qty=0");
+
+				// On fait quelques modifications sur la page
+				var newNb = document.querySelectorAll(".products [data-product-id]").length;
+
+				console.log(newNb);
+
+				if (newNb == 0) {
+					self.promoForm.style.display = "none";
+					submitBtn.style.display      = "none";
+					noPdctError.style.display    = "block";
+
+					self.removePromoCode();
+				} else {
+					self.promoForm.style.display = "block";
+					submitBtn.style.display      = "block";
+					noPdctError.style.display    = "none";
+				}
+
+				self.updateTotal();
+				self.updateHeader();
+				return false;
+			});
+	},
+
+
 	/* --------------------------- */
 	/* -- Mise à jour du panier -- */
 	/* --------------------------- */
@@ -207,19 +257,44 @@ Panier.prototype = {
 
 		// On oublie pas de mettre à jour le total aussi.
 		this.updateTotal();
+		this.updateHeader();
+	},
+	updateHeader: function() {
+		var btnHead     = document.querySelector(".cart-header");
+		var productList = document.querySelector(".cart-content .cart-products");
+
+		var nb    = this.calcCartSize();
+		var total = this.calcCartTotal();
+
+		btnHead.querySelector(".badge").innerHTML   = nb;
+		btnHead.querySelector(".balance").innerHTML = total.toFixed(2) + "€";
+
+		// Mise à jour de la liste des produits
+		var rows = document.querySelectorAll("tr[data-product-id]");
+
+		productList.innerHTML = "";
+
+		for (var row of rows) {
+			var name  = row.querySelector(".name").innerHTML;
+			var qty   = row.querySelector("[qty-selector] span").innerHTML;
+			var price = row.querySelector(".c-price span").innerHTML;
+
+			var artEl = document.createElement("div");
+			artEl.className = "product";
+
+			artEl.innerHTML  = '<span class="name">' + name + '</span>';
+			artEl.innerHTML += '<span class="qty">x' + qty + '</span>';
+			artEl.innerHTML += '<span class="price">' + parseFloat(price).toFixed(2) + '€</span>';
+
+			productList.appendChild(artEl);
+		}
 	},
 	updateTotal: function() {
 		var self         = this;
 		var totalTable   = document.querySelector("table.total");
 		var totPriceSpan = totalTable.querySelector(".total-products-price");
-		var priceSpans   = document.querySelectorAll(".c-price span");
 		var trPromo      = totalTable.querySelector("tr.promo");
-
-		// Calcul du coût total du panier sans remise
-		var total = 0;
-
-		for (var priceSpan of priceSpans)
-			total += parseFloat(priceSpan.innerHTML);
+		var total        = this.calcCartTotal();
 
 		totPriceSpan.innerHTML = total.toFixed(2);
 
@@ -273,6 +348,25 @@ Panier.prototype = {
 		}
 		
 		return xhr;
+	},
+	calcCartSize: function() {
+		var qtySpans = document.querySelectorAll("[qty-selector] span");
+		var total    = 0;
+
+		for (var qtySpan of qtySpans)
+			total += parseFloat(qtySpan.innerHTML);
+
+		return total;
+	},
+	calcCartTotal: function() {
+		// Calcul du coût total du panier sans remise
+		var priceSpans = document.querySelectorAll(".c-price span");
+		var total      = 0;
+
+		for (var priceSpan of priceSpans)
+			total += parseFloat(priceSpan.innerHTML);
+
+		return total;
 	}
 
 };

@@ -7,7 +7,8 @@
 				<th>Article</th>
 				<th>Prix unitaire TTC</th>
 				<th>Quantité</th>
-				<th>Prix TTC</th>
+				<th style="width:190px">Prix TTC</th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -15,7 +16,7 @@
 				<tr data-product-id="<?= $article->id ?>">
 					<td>
 						<!-- <span class="cat booster">Booster</span> -->
-						<a href="#"><?= $article->name ?></a>
+						<a href="#" class="name"><?= $article->name ?></a>
 					</td>
 					<td class="u-price c">
 						<span><?= $article->price ?></span> €
@@ -26,15 +27,23 @@
 					<td class="c-price c">
 						<span><?= $article->cartPrice ?></span> €
 					</td>
+					<td>
+						<i class="fa fa-times-rectangle remove"></i>
+					</td>
 				</tr>
 			<?php endforeach ?>
+			<tr class="noproduct" <?= (count($articles) > 0) ? ' style="display:none"' : ' style="display:block"' ?>>
+				<td><p>
+					<i class="fa fa-times"></i> Aucun produit dans votre panier.
+				</p></td>
+			</tr>
 		</tbody>
 	</table>
 
 	<div class="basket-action-container">
 		<div class="col-group">
 			<div class="col-4">
-				<form action="<?= $Html->href("panier/promotionalcode") ?>" method="POST" class="promo-form">
+				<form action="<?= $Html->href("panier/promotionalcode") ?>" method="POST" class="promo-form"<?php if (count($articles) == 0) echo ' style="display:none"' ?>>
 					<input type="text" placeholder="Code promotionnel"<?php if ($promoCode != null): echo " value='$promoCode'"; endif; ?>>
 					<button type="submit"><i class="fa fa-angle-right"></i></button>
 				</form>
@@ -67,7 +76,7 @@
 				</table>
 				<div class="clear"></div>
 
-				<button type="submit" class="submit">
+				<button type="submit" class="submit"<?php if (count($articles) == 0) echo ' style="display:none"' ?>>
 					<i class="fa fa-check"></i> Commander
 				</button>
 			</div>
