@@ -254,7 +254,7 @@ table.products tbody tr td .cat {
 	border-radius: 2px;
 }
 table.products tbody tr td .cat.booster { background: #3498db; }
-table.products tbody tr td .cat.rank { background: #f1c40f; }
+table.products tbody tr td .cat.grade { background: #f1c40f; }
 table.products tbody tr td input[type="number"] {
 	height: 30px;
 	background: #FFF;

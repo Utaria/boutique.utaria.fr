@@ -15,13 +15,13 @@
 			<?php foreach ($articles as $article): ?>
 				<tr data-product-id="<?= $article->id ?>">
 					<td>
-						<!-- <span class="cat booster">Booster</span> -->
+						<span class="cat <?= $article->type ?>"><?= ucfirst($article->type) ?></span>
 						<a href="#" class="name"><?= $article->name ?></a>
 					</td>
 					<td class="u-price c">
 						<span><?= $article->price ?></span> €
 					</td>
-					<td class="c" qty-selector>
+					<td class="c"<?php if (!$article->single) echo " qty-selector" ?>>
 						<span><?= $article->qty ?></span>
 					</td>
 					<td class="c-price c">
