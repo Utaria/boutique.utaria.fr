@@ -79,6 +79,9 @@ class Table {
 		, $attr);
 	}
 
+	public function getLastInsertId() {
+		return intval($this->db->getPDO()->lastInsertId());
+	}
 
 	protected function getEntityClass() {
 		$class_name = get_class($this);

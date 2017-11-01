@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use Core\Controller\Controller;
+use App\Helper\SessionCart;
 use App;
 
 class PanierController extends Controller {
@@ -45,6 +46,13 @@ class PanierController extends Controller {
 		$this->render("panier", compact("articles", "cartTotal", "promoCode"));
 	}
 
+	public function recapitulatif() {
+		if (!SessionCart::getInstance()->getUser())
+			$this->redirect("paiement/login");
+
+		$this->render("panier.recapitulatif");
+	}
+
 	public function promotionalcode() {
 		if (!isset($_POST["code"]) || empty($_POST["code"]))
 			die(json_encode(array("error" => "empty_code")));
@@ -62,7 +70,8 @@ class PanierController extends Controller {
 			return;
 		}
 
-		$table = App::getInstance()->getTable("ShopPromo");
+		$cart     = SessionCart::getInstance();
+		$table    = App::getInstance()->getTable("ShopPromo");
 		$shopCode = $table->findByCode($code);
 
 		$good     = true;
@@ -82,11 +91,11 @@ class PanierController extends Controller {
 		unset($shopCode->date);
 		unset($shopCode->min_price);
 
-		// Mise à jour de la session
-		session_start();
-
-		if ($good && isset($_SESSION["shopcart"]))
-			$_SESSION["shopcart"]["promocode"] = $shopCode->code;
+		// Mise à jour du panier avec le code promo
+		if ($good) {
+			$cart->setPromoCode($shopCode->code);
+			$cart->setSaved(false);
+		}
 
 		die(json_encode(array("good" => $good, "code" => $shopCode, "error_msg" => $errorMsg)));
 	}

@@ -276,7 +276,7 @@ Panier.prototype = {
 
 		for (var row of rows) {
 			var name  = row.querySelector(".name").innerHTML;
-			var qty   = row.querySelector("[qty-selector] span").innerHTML;
+			var qty   = row.querySelector(".qty span").innerHTML;
 			var price = row.querySelector(".c-price span").innerHTML;
 
 			var artEl = document.createElement("div");

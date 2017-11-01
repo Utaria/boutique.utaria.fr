@@ -21,7 +21,7 @@
 					<td class="u-price c">
 						<span><?= $article->price ?></span> €
 					</td>
-					<td class="c"<?php if (!$article->single) echo " qty-selector" ?>>
+					<td class="qty c"<?php if (!$article->single) echo " qty-selector" ?>>
 						<span><?= $article->qty ?></span>
 					</td>
 					<td class="c-price c">
@@ -76,9 +76,9 @@
 				</table>
 				<div class="clear"></div>
 
-				<button type="submit" class="submit"<?php if (count($articles) == 0) echo ' style="display:none"' ?>>
+				<a href="<?= $Html->href("commande/create") ?>"><button type="submit" class="submit"<?php if (count($articles) == 0) echo ' style="display:none"' ?>>
 					<i class="fa fa-check"></i> Commander
-				</button>
+				</button></a>
 			</div>
 		</div>
 		

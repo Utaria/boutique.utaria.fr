@@ -25,7 +25,7 @@
 
 	<link rel="icon" type="image/png" href="<?= $Html->srcImg("favicon.png") ?>" />
 
-	<?= $Html->css("https://fonts.googleapis.com/css?family=Lato:400,700,900|Open+Sans:400,700") ?>
+	<?= $Html->css("https://fonts.googleapis.com/css?family=Lato:400,700,900|Open+Sans:400,700,900") ?>
 	<?= $Html->css("fa") ?>
 	<?= $Html->css("grid") ?>
 	<?= $Html->css("style") ?>

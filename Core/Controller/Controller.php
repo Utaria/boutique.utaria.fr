@@ -5,6 +5,7 @@ use Core\Config;
 use Core\Exception\UnknownTemplateException;
 use Core\Exception\UnknownViewException;
 use Core\Helper\Html;
+use App;
 
 class Controller {
 
@@ -99,6 +100,13 @@ class Controller {
             require $templateFile;
         else
 		    throw new UnknownTemplateException(["template" => $this->template]);
+	}
+
+	public function redirect($action) {
+		$url = App::getInstance()->getBaseURI() . $action;
+
+		header("Location: $url");
+		exit();
 	}
 
 }
