@@ -1,0 +1,21 @@
+{
+    "name": "utaria/boutique.utaria.fr",
+    "description": "Site internet de la boutique d'Utaria",
+    "license": "Privée",
+    "version": "1.0.0",
+    "authors": [
+        {
+            "name": "Utarwyn",
+            "email": "maxime.malgorn@laposte.net"
+        }
+    ],
+    "autoload": {
+      "psr-4": {
+        "App\\": "src/App",
+        "Core\\": "src/Core"
+      }
+    },
+    "require": {
+        "robmorgan/phinx": "^0.9.2"
+    }
+}
