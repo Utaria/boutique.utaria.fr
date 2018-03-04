@@ -61,6 +61,22 @@ class SessionCart {
 		$this->cache["promocode"] = $promocode;
 	}
 
+	public function getLastCommandeId() {
+	    return $_SESSION["last_commande_id"];
+    }
+
+	public function setLastCommandeId($commandeId) {
+	    $_SESSION["last_commande_id"] = $commandeId;
+    }
+
+    public function getLastPaymentMean() {
+	    return $_SESSION["last_payment_mean"];
+    }
+
+    public function setLastpaymentMean($paymentMean) {
+	    $_SESSION["last_payment_mean"] = $paymentMean;
+    }
+
 	public function destroy() {
         unset($_SESSION["shopcart"]);
     }
@@ -110,6 +126,7 @@ class SessionCart {
 		foreach ($this->cache["products"] as $pId => $nb) {
 			$id      = str_replace("p_", "", $pId);
 			$article = $table->find($id);
+			if (empty($article)) continue;
 
 			$article->qty   = $nb;
 			$article->price = number_format($article->price, 2);

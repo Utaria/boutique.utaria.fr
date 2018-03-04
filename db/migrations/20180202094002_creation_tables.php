@@ -3,7 +3,7 @@
 
 use Phinx\Migration\AbstractMigration;
 
-class CreateInitTables extends AbstractMigration {
+class CreationTables extends AbstractMigration {
 
     public function change() {
         $this->table("shop_articles")

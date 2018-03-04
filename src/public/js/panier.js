@@ -70,7 +70,7 @@ Panier.prototype = {
 						
 						btn.classList.remove("loading");
 						btn.classList.add("success");
-						btn.querySelector("i.fa").className = "fa fa-check";
+						btn.querySelector("svg").className = "fa fa-check";
 
 						self.promoCode = res.code;
 						self.updateTotal();
@@ -86,12 +86,12 @@ Panier.prototype = {
 				self.canSendPromoReq = true;
 
 				btn.classList.remove("loading");
-				btn.querySelector("i.fa").className = "fa fa-angle-right";
+				btn.querySelector("svg").className = "fa fa-angle-right";
 			}
 		};
 
 		btn.classList.add("loading");
-		btn.querySelector("i.fa").className = "fa fa-spin fa-refresh";
+		btn.querySelector("svg").className = "fa fa-spin fa-refresh";
 		xhr.send("code=" + code);
 
 		return false;
@@ -116,7 +116,7 @@ Panier.prototype = {
 						
 		btn.classList.remove("loading");
 		btn.classList.remove("success");
-		btn.querySelector("i.fa").className = "fa fa-angle-right";
+		btn.querySelector("svg").className = "fa fa-angle-right";
 
 		this.promoCode = null;
 		this.updateTotal();
@@ -202,7 +202,7 @@ Panier.prototype = {
 	initRemoveSelectors: function() {
 		var self        = this;
 		var rmSelectors = document.querySelectorAll(".products .remove");
-		var submitBtn   = document.querySelector("button.submit");
+		var confirmCont = document.querySelector(".confirm-container");
 		var noPdctError = document.querySelector(".noproduct");
 
 		for (var i = 0; i < rmSelectors.length; i++)
@@ -226,13 +226,13 @@ Panier.prototype = {
 
 				if (newNb === 0) {
 					self.promoForm.style.display = "none";
-					submitBtn.style.display      = "none";
+                    confirmCont.style.display      = "none";
 					noPdctError.style.display    = "block";
 
 					self.removePromoCode();
 				} else {
 					self.promoForm.style.display = "block";
-					submitBtn.style.display      = "block";
+                    confirmCont.style.display      = "block";
 					noPdctError.style.display    = "none";
 				}
 
@@ -376,4 +376,6 @@ Panier.prototype = {
 
 };
 
-new Panier();
+window.addEventListener("load", function() {
+    new Panier();
+});

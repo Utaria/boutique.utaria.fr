@@ -56,6 +56,11 @@ class App {
 		return BASE_URL . '/' . ((Config::getInstance()->getValue("useURI")) ? 'public/?uri=' : '');
 	}
 
+    public function getBaseURL() {
+        $protocol = strpos(strtolower($_SERVER['SERVER_PROTOCOL']),'https') === FALSE ? 'http' : 'https';
+        return $protocol . '://' . $_SERVER['SERVER_NAME'] . BASE_URL . '/' . ((Config::getInstance()->getValue("useURI")) ? 'public/?uri=' : '');
+    }
+
     /**
      * Permet de récupérer un objet table depuis son nom.
      *

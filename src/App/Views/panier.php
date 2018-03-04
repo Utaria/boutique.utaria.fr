@@ -1,5 +1,12 @@
-<div class="wrap-inner col-group content">
-	<h1 class="title">Votre panier</h1>
+<div class="content-top-group">
+    <div class="wrap-inner col-group">
+        <h2><b>Mon panier</b></h2>
+        <p>N'oubliez pas de le reposez près de la caisse une fois utilisé.</p>
+    </div>
+</div>
+
+<div class="wrap-inner basket-container col-group content">
+    <h2 class="center">Récapitulatif</h2>
 
 	<table class="products" data-qty-href="<?= $Html->href("panier/changeqty") ?>" cellspacing="0" cellpadding="0">
 		<thead>
@@ -7,7 +14,7 @@
 				<th>Article</th>
 				<th>Prix unitaire TTC</th>
 				<th>Quantité</th>
-				<th style="width:190px">Prix (en coin)</th>
+				<th style="width:190px">Prix TTC</th>
 				<th></th>
 			</tr>
 		</thead>
@@ -28,7 +35,7 @@
 						<span><?= $article->cartPrice ?></span> €
 					</td>
 					<td>
-						<i class="fa fa-times-rectangle remove"></i>
+						<i class="fas fa-times-circle remove"></i>
 					</td>
 				</tr>
 			<?php endforeach ?>
@@ -48,14 +55,11 @@
 					<button type="submit"><i class="fa fa-angle-right"></i></button>
 				</form>
 				<span class="error"></span>
-				<div class="links">
-					<a href="#">Conditions de ventes</a>
-				</div>
 			</div>
 			<div class="col-8">
 				<table class="total">
 					<tr class="b">
-						<td>Total de vos achats</td>
+						<td>Total de vos achats TTC</td>
 						<td>
 							<span class="total-products-price"><?= $cartTotal ?></span> €
 						</td>
@@ -67,7 +71,7 @@
 						<td class="reduc"></td>
 					</tr>
 					<tr class="b">
-						<td>Total avec remise</td>
+						<td>Total avec remise TTC</td>
 						<td>
 							<span></span> €
 						</td>
@@ -75,12 +79,51 @@
 					<tr><td></td><td></td></tr>
 				</table>
 				<div class="clear"></div>
-
-				<a href="<?= $Html->href("commande/create") ?>"><button type="submit" class="submit"<?php if (count($articles) == 0) echo ' style="display:none"' ?>>
-					<i class="fa fa-check"></i> Commander
-				</button></a>
 			</div>
 		</div>
-		
-	</div>
+    </div>
+
+    <!-- TODO: informations supplémentaires requises pour chaque commande.
+    <br /><br />
+    <h2 class="center">Vos informations</h2>
+
+    <div class="col-group">
+        <div class="col-6">
+
+        </div>
+        <div class="col-6">
+
+        </div>
+    </div>
+    -->
+
+    <div class="confirm-container"<?php if (count($articles) == 0) echo ' style="display:none"' ?>>
+        <br /><br />
+        <h2 class="center" style="font-size:1.7em">Confirmer</h2>
+
+        <blockquote class="warn-message">
+            <i class="fas fa-exclamation-triangle"></i> Tout achat effectué sur la boutique <b>est définitif et ne peut pas être remboursé</b>. En cas de fraude ou de litige, le joueur concerné sera <b>définitivement banni</b>.
+        </blockquote>
+
+        <input type="checkbox" id="confirm-box" /> <label for="confirm-box" class="confirm-label">
+            J'ai lu et j'accepte les conditions générales d'utilisation et les conditions générales de vente.
+        </label>
+
+        <a href="<?= $Html->href("commande/create") ?>" onclick="if (!verifyConfirmation()) {event.preventDefault();return false;}"><button type="submit" class="btn submit">
+                <i class="fa fa-check"></i> Commander
+            </button></a>
+    </div>
 </div>
+
+<script type="text/javascript">
+    function verifyConfirmation() {
+        var box = document.getElementById("confirm-box");
+
+        if (!box.checked) {
+            alert("Merci de confirmer votre commande !");
+            return false;
+        }
+
+        return true;
+    }
+</script>

@@ -26,10 +26,11 @@
 	<link rel="icon" type="image/png" href="<?= $Html->srcImg("favicon.png") ?>" />
 
 	<?= $Html->css("https://fonts.googleapis.com/css?family=Lato:400,700,900|Open+Sans:400,700,900") ?>
-	<?= $Html->css("fa") ?>
 	<?= $Html->css("grid") ?>
 	<?= $Html->css("style") ?>
 	<?= $Html->css("boutique") ?>
+
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 </head>
 <body>
 	<header class="header">
@@ -42,19 +43,8 @@
 					Bienvenue dans notre <span>boutique</span> !
 				</div>
 				<nav class="navigation-header">
-					<?php
-                    $cart = App\Helper\SessionCart::getInstance();
-                    $orders = App::getInstance()->getTable("commande")->findByUserId($cart->getUserId());
-                    $nbOrders = is_null($orders) ? 0 : count($orders);
-                    ?>
-                    <?php if ($nbOrders > 0): ?>
-                    <a href="<?= $Html->href("commande") ?>"><div class="btn btn-primary shop-order-summary" title="Mes commandes">
-                        <div class="cart-header">
-                            <i class="fa fa-cart-arrow-down m-symb"></i>Mes commandes
-                            <span class="badge"><?= $nbOrders ?></span>
-                        </div>
-                    </div></a>
-                    <?php endif; ?>
+					<?php $cart = App\Helper\SessionCart::getInstance(); ?>
+
 					<div class="btn btn-primary shop-cart-summary" title="Panier">
 						<div class="cart-header">
 							<i class="fa fa-shopping-cart m-symb"></i>Votre Panier
@@ -131,8 +121,8 @@
 					<li><?= $Html->link("blog", "Suivre notre avancement") ?></li>
 					<li><?= $Html->link("voter", "Votez pour nous") ?></li>
 					<li><?= $Html->link("jouer", "Nous rejoindre") ?></li>
-					<li><a href="#">Statistiques</a></li>
-					<li><a href="#">Nous contacter</a></li>
+					<!--<li><a href="#">Statistiques</a></li>-->
+					<li><a href="mailto:contact@utaria.fr">Nous contacter</a></li>
 				</ul>
 			</div>
 

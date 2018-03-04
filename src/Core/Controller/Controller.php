@@ -67,6 +67,9 @@ class Controller {
 	}
 
 
+    public function setResponseType($responseType) {
+	    @header("Content-type: $responseType");
+    }
 
 	public function render($view_name, $variables = null) {
 		if ($this->template == null) return;

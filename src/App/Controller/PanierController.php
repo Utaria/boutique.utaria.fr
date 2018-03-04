@@ -13,7 +13,6 @@ class PanierController extends Controller {
 	public function index() {
 		session_start();
 
-		// unset($_SESSION["shopcart"]);
 		$fillEmpty = true;
 
 		if (!isset($_SESSION["shopcart"]) && !isset($_SESSION["shopcart"]["products"]) || (empty($_SESSION["shopcart"]["products"]) && $fillEmpty))
@@ -31,6 +30,7 @@ class PanierController extends Controller {
 		foreach ($sessionCart["products"] as $pId => $nb) {
 			$id      = str_replace("p_", "", $pId);
 			$article = $table->find($id);
+			if (empty($article)) continue;
 			
 			$article->qty   = $nb;
 			$article->price = number_format($article->price, 2);

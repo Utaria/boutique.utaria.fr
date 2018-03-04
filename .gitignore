@@ -2,3 +2,4 @@
 config/
 *.iml
 /vendor/
+composer.lock
