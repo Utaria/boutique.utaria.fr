@@ -92,12 +92,20 @@ class API {
         ));
 
         if ($auth == null || !$auth->success)
-            throw new Exception("Impossible de se connecter à l'API !");
+            throw new APIConnectionException();
 
         $_SESSION["api_auth_token"] = $auth->token;
         $_SESSION["api_auth_expir"] = $auth->expiresAt;
 
         return $auth->token;
 	}
+
+}
+
+class APIConnectionException extends Exception {
+
+    public function __construct($previous = null) {
+        parent::__construct("Impossible de se connecter à l'API !", 0, $previous);
+    }
 
 }

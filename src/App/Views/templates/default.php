@@ -43,7 +43,7 @@
 					Bienvenue dans notre <span>boutique</span> !
 				</div>
 				<nav class="navigation-header">
-					<?php $cart = App\Helper\SessionCart::getInstance(); ?>
+					<?php $cart = App\Helper\Cart\SessionCart::getInstance(); ?>
 
 					<div class="btn btn-primary shop-cart-summary" title="Panier">
 						<div class="cart-header">
@@ -75,9 +75,9 @@
 					IP du serveur: <span>mc.utaria.fr</span>
 				</div>
 				<nav class="sub-nav">
-					<a href="<?= $Html->href("survie") ?>" title="Survie">Survie</a>
+                    <a href="<?= $Html->href("survie") ?>" title="Fonctionnalités survie">Survie</a>
                     <a href="<?= $Html->href("cosmetiques") ?>" title="Les cosmétiques">Cosmétiques</a>
-                    <a href="<?= $Html->href("grades") ?>" title="Les grades">Grades</a>
+                    <a href="<?= $Html->href("formules") ?>" title="Les formules">Formules</a>
                 </nav>
 			</div>
 		</section>

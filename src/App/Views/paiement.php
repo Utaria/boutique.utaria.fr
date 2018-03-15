@@ -112,10 +112,17 @@
             var xhr = new XMLHttpRequest();
 
             xhr.addEventListener("readystatechange", function(event) {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    var json = JSON.parse(xhr.responseText);
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        var json = JSON.parse(xhr.responseText);
 
-                    updateRecap(json);
+                        updateRecap(json);
+                        occ = false;
+                    } else {
+                        loader.style.display = "none";
+                        choose.style.display = "block";
+                    }
+
                     occ = false;
                 }
             });

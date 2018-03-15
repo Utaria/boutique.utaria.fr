@@ -2,7 +2,7 @@
 namespace App\Controller;
 
 use App;
-use App\Helper\SessionCart;
+use App\Helper\Cart\SessionCart;
 use Core\Controller\Controller;
 
 class CommandeController extends Controller {
@@ -37,7 +37,7 @@ class CommandeController extends Controller {
             "uid"       => $uid,
 			"total"     => $cart->getTotal(),
 			"promocode" => $cart->getPromoCode(),
-			"player_id" => $cart->getUser()->id
+			"player_id" => $cart->getUser()->getId()
 		));
 
 		$orderId = $this->getTable()->getLastInsertId();

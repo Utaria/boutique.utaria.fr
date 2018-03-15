@@ -1,5 +1,5 @@
 <?php
-namespace App\Helper;
+namespace App\Helper\Cart;
 
 use App;
 
@@ -11,6 +11,9 @@ class SessionCart {
 
 	private $articles;
 
+    /**
+     * @var SessionUser Utilisateur en session
+     */
 	private $user;
 
 	public function __construct() {
@@ -84,16 +87,22 @@ class SessionCart {
 	/* ----------------------------------------- */
 	/*  GESTION DE L'UTILISATEUR                 */
 	/* ----------------------------------------- */
+    /**
+     * @return SessionUser Session de l'utilisateur
+     */
 	public function getUser() {
-		return (object) $this->user;
+		return $this->user;
 	}
 
+    /**
+     * @return int|null
+     */
 	public function getUserId() {
-	    return !empty($this->user) ? $this->user->id : null;
+	    return !is_null($this->user) ? $this->user->getId() : null;
     }
 
 	public function isUserConnected() {
-		return !empty($this->user);
+		return !is_null($this->user);
 	}
 
 	public function logUser($player) {
@@ -138,16 +147,21 @@ class SessionCart {
 		return $this->articles;
 	}
 
+    /**
+     * @return SessionUser|null
+     */
 	private function loadUser() {
 		if (!is_null($this->user))
 			return $this->user;
 
-		if (!isset($_SESSION["shopauth"])) {
-			$this->user = false;
-			return null;
-		}
+		if (!isset($_SESSION["shopauth"]))
+			return $this->user = null;
 
-		return $this->user = $_SESSION["shopauth"];
+		$authSes = $_SESSION["shopauth"];
+
+		return $this->user = new SessionUser(
+		    $authSes->id, $authSes->playername, $authSes->uuid
+        );
 	}
 
 	public static function getInstance() {

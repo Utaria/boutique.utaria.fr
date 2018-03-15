@@ -8,6 +8,9 @@ $app = App::getInstance();
 
 use Core\Routing\Router;
 
+// Redirections d'articles
+Router::connect("survie", "article/survie");
+
 Router::connect("commande/:id", "commande/view/id:([0-9]+)");
 
 $app->load();

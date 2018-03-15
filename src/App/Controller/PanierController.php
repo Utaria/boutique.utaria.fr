@@ -2,7 +2,7 @@
 namespace App\Controller;
 
 use App;
-use App\Helper\SessionCart;
+use App\Helper\Cart\SessionCart;
 use Core\Controller\Controller;
 
 class PanierController extends Controller {

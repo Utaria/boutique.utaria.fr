@@ -3,7 +3,7 @@ namespace App\Controller;
 
 use App;
 use App\Helper\API;
-use App\Helper\SessionCart;
+use App\Helper\Cart\SessionCart;
 use Core\Config;
 use Core\Controller\Controller;
 use PayPal\Api\Payer;
@@ -17,6 +17,36 @@ use PayPal\Rest\ApiContext;
 class PaiementController extends Controller {
 
 	protected $useTable = false;
+
+    public function login() {
+        $error = null;
+        $cart = SessionCart::getInstance();
+
+        if ($cart->isUserConnected())
+            $this->redirect("commande/create");
+
+        $error = null;
+
+        if (!empty($_POST)) {
+            $playername = $_POST["playername"];
+            $password   = sha1($_POST["password"]);
+
+            $authObj = API::post("players/authenticate", array(
+                "name"     => $playername,
+                "password" => $password
+            ));
+
+            if ($authObj != null && !$authObj->error) {
+                $cart->logUser($authObj);
+                $this->redirect("commande/create");
+            } else {
+                $prefix = "<i class='fa fa-arrow-right'></i>";
+                $error = $prefix . "Pseudo ou mot de passe incorrect.";
+            }
+        }
+
+        $this->render("paiement.login", compact("error"));
+    }
 
     public function index() {
         $cart = SessionCart::getInstance();
@@ -91,7 +121,7 @@ class PaiementController extends Controller {
 
         echo json_encode(array(
             "order_uid" => $order->uid,
-            "account"   => $cart->getUser()->playername,
+            "account"   => $cart->getUser()->getPlayername(),
             "mean"      => ucfirst($mean),
             "total"     => floatval($order->total),
             "promocode" => $order->promocode,
@@ -170,34 +200,24 @@ class PaiementController extends Controller {
         }
     }
 
-	public function login() {
-		$error = null;
-		$cart = SessionCart::getInstance();
+    public function merci() {
+        // On fait toutes les vérifications nécessaires ...
+        $cart = SessionCart::getInstance();
+        if (!$cart->isUserConnected()) $this->redirect("/");
 
-		if ($cart->isUserConnected())
-			$this->redirect("commande/create");
+        $comId = $cart->getLastCommandeId();
+        if (is_null($comId)) $this->redirect("/");
 
-		$error = null;
+        $com = App::getInstance()->getTable("commande")->find($comId);
+        if (is_null($com) || $com->status != 'PAID')
+            $this->redirect("/");
 
-		if (!empty($_POST)) {
-			$playername = $_POST["playername"];
-			$password   = sha1($_POST["password"]);
+        // ... tout est ok donc on lance la distribution des produits ...
+        foreach ($com->getArticleList() as $article)
+            App\Helper\CommandeArticleDistributor::distribute($cart->getUser(), $article);
 
-			$authObj = API::post("players/authenticate", array(
-                "name"     => $playername,
-                "password" => $password
-            ));
-
-			if ($authObj != null && !$authObj->error) {
-				$cart->logUser($authObj);
-				$this->redirect("commande/create");
-			} else {
-				$prefix = "<i class='fa fa-arrow-right'></i>";
-				$error = $prefix . "Pseudo ou mot de passe incorrect.";
-			}
-		}
-
-		$this->render("paiement.login", compact("error"));
-	}
+        // ... et on affiche la page de remerciements.
+        $this->render("paiement.merci");
+    }
 
 }

@@ -848,6 +848,12 @@ p.error {
     box-shadow: none;
 }
 
+.yes-gif {
+    display: block;
+    position: relative;
+    width: 500px;
+    margin: 20px auto;
+}
 
 /* --------------------------- */
 /* ----   PAGES COMMANDE  ---- */
