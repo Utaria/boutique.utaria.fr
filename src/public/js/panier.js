@@ -178,8 +178,8 @@ Panier.prototype = {
 		if (qty === 1) minusEl.classList.add("hidden");
 		else           minusEl.classList.remove("hidden");
 
-		if (qty === 9) plusEl.classList.add("hidden");
-		else           plusEl.classList.remove("hidden");
+		if (qty === 999) plusEl.classList.add("hidden");
+		else             plusEl.classList.remove("hidden");
 		
 		if (manual)
 			this.updateQtySession(

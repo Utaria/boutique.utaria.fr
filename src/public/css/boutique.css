@@ -1,3 +1,133 @@
+/* ------------------------------ */
+/* ----   PAGE PRESENTATION  ---- */
+/* ------------------------------ */
+.article {
+    display: block;
+    position: relative;
+
+    background: white;
+    border: 3px solid #EEEEEE;
+    font-weight: bold;
+    border-radius: 2.5px;
+
+    transition: ease-in-out all .2s;
+}
+
+.article:hover,
+.article.opened  { border-color: #3498db; }
+.article.success { border-color: #27ae60; }
+.article.error   { border-color: #c0392b; }
+
+.article:hover .meta,
+.article.opened .meta {
+    background-color: #3498db;
+    color: white;
+    cursor: pointer;
+}
+.article.success .meta { background-color: #27ae60; }
+.article.error .meta   { background-color: #c0392b; }
+
+.article .image {
+    height: 150px;
+}
+.article .image img {
+    display: block;
+    position: relative;
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto;
+}
+
+.article .meta {
+    display: block;
+    position: relative;
+    height: 60px;
+    background: #EEE;
+    padding: 10px 0;
+    text-align: center;
+    font-size: .85em;
+    transition: ease-in-out all .2s;
+    overflow: hidden;
+}
+
+.article .meta > div {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+
+    transition: transform ease-in-out .2s;
+}
+
+.article .meta div.addtocart {
+    transform: translateY(100%);
+}
+
+.article .meta div.addtocart svg.fa-cog {
+    font-size: 2em;
+    margin-top: 15px;
+    display: none;
+
+    width: 100%;
+    text-align: center;
+}
+
+.article .meta div.addtocart .label {
+    display: none;
+    position: relative;
+    font-size: 1.2em;
+    line-height: 60px;
+    text-transform: uppercase;
+}
+
+.article .meta:hover div.info,
+.article.opened .meta div.info {
+    transform: translateY(-100%);
+}
+
+.article .meta:hover div.addtocart,
+.article.opened .meta div.addtocart {
+    transform: translateY(0);
+}
+
+.article .meta div.info {
+    padding-top: 8px;
+}
+
+.article .meta .price {
+    color: red;
+}
+
+.article .meta:hover {
+
+}
+
+.article .meta .btn.shop-cart-add {
+    display: block;
+    position: relative;
+
+    overflow: hidden;
+    cursor: inherit;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 0;
+    line-height: 60px;
+    font-size: 1.1em;
+
+    border: none;
+    box-shadow: none;
+    transition: width ease-in-out .2s, height ease-in-out .2s;
+    z-index: 3;
+}
+
+.article .meta .btn.shop-cart-add .m-symb {
+    color: white !important;
+}
+
 /* -------------------------- */
 /* ----   BOUTON PANIER  ---- */
 /* -------------------------- */

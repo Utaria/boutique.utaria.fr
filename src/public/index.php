@@ -9,7 +9,8 @@ $app = App::getInstance();
 use Core\Routing\Router;
 
 // Redirections d'articles
-Router::connect("survie", "article/survie");
+Router::connect('survie', 'article/survie');
+Router::connect('article/:id/addtocart', 'article/addtocart/id:([0-9]+)');
 
 Router::connect("commande/:id", "commande/view/id:([0-9]+)");
 

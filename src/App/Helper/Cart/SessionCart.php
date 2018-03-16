@@ -9,6 +9,9 @@ class SessionCart {
 
 	private $cache;
 
+    /**
+     * @var App\Entity\ShopArticleEntity[] Tableau des articles du panier
+     */
 	private $articles;
 
     /**
@@ -29,6 +32,30 @@ class SessionCart {
 	/* ----------------------------------------- */
 	/*  GESTION DU PANIER                        */
 	/* ----------------------------------------- */
+    /**
+     * @param $article App\Entity\ShopArticleEntity Article à ajouter
+     * @return boolean Vrai si l'article a bien été ajouté au panier
+     */
+	public function addArticle($article) {
+	    // Récupérations nécessaires ...
+        if (empty($_SESSION["shopcart"]))
+            $_SESSION["shopcart"] = array("products" => array(), "promocode" => null);
+
+        $products = $_SESSION["shopcart"]["products"];
+        $key = "p_" . $article->id;
+        $baseQty = isset($products[$key]) ? $products[$key] : 0;
+
+	    // Vérifications ...
+        if ($article->single && $baseQty == 1)
+            return false;
+
+        // ... puis ajout !
+        $this->articles[] = $article;
+        $_SESSION["shopcart"]["products"][$key] = $baseQty + 1;
+
+        return true;
+    }
+
 	public function getArticles() {
 		return $this->articles;
 	}

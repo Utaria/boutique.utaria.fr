@@ -9,22 +9,12 @@ class PanierController extends Controller {
 
 	protected $useTable = false;
 
-
 	public function index() {
 		session_start();
 
-		$fillEmpty = true;
-
-		if (!isset($_SESSION["shopcart"]) && !isset($_SESSION["shopcart"]["products"]) || (empty($_SESSION["shopcart"]["products"]) && $fillEmpty))
-			$_SESSION["shopcart"]["products"] = array(
-				"p_3" => 2,
-				"p_4" => 1,
-				"p_2" => 1
-			);
-
 		$articles    = array();
 		$table       = App::getInstance()->getTable("shopArticle");
-		$sessionCart = $_SESSION["shopcart"];
+		$sessionCart = isset($_SESSION["shopcart"]) ? $_SESSION["shopcart"] : array('products' => array());
 		$cartTotal   = 0;
 
 		foreach ($sessionCart["products"] as $pId => $nb) {
@@ -46,12 +36,16 @@ class PanierController extends Controller {
 		$this->render("panier", compact("articles", "cartTotal", "promoCode"));
 	}
 
-	public function recapitulatif() {
-		if (!SessionCart::getInstance()->getUser())
-			$this->redirect("paiement/login");
+	public function recap() {
+        $cart = SessionCart::getInstance();
 
-		$this->render("panier.recapitulatif");
-	}
+        $this->setResponseType("application/json");
+        echo json_encode(array(
+            "size"     => $cart->getSize(),
+            "balance"  => $cart->getTotal(),
+            "articles" => $cart->getArticles()
+        ));
+    }
 
 	public function promotionalcode() {
 		if (!isset($_POST["code"]) || empty($_POST["code"]))
