@@ -75,13 +75,42 @@ Articles.prototype = {
         var btn = document.querySelector(".shop-cart-summary");
         var badge = btn.querySelector(".badge");
 
+        var xhr = new XMLHttpRequest();
 
+        xhr.addEventListener("readystatechange", function() {
+            if (xhr.status === 200 && xhr.readyState === 4) {
+                var json = JSON.parse(xhr.responseText);
 
-        badge.style.transform = "scale(4) rotate(-20deg)";
+                // Informations majeures
+                badge.innerHTML = json.size;
+                btn.querySelector(".balance").innerHTML = json.balance.toFixed(2) + "€";
 
-        setTimeout(function() {
-            badge.style.transform = "scale(1)";
-        }, 400);
+                // Liste des produits
+                var prods = btn.querySelector(".cart-products");
+                prods.innerHTML = "";
+
+                for (var i = 0; i < json.articles.length; i++) {
+                    var article = json.articles[i];
+                    var doc = document.createElement("div");
+
+                    doc.className = "product";
+                    doc.innerHTML = '<span class="name">'+ article.name +'</span>';
+                    doc.innerHTML += '<span class="qty">x'+ article.qty +'</span>';
+                    doc.innerHTML += '<span class="price">'+ parseFloat(article.cartPrice).toFixed(2) +'</span>';
+
+                    prods.appendChild(doc);
+                }
+
+                badge.style.transform = "scale(4) rotate(-20deg)";
+
+                setTimeout(function() {
+                    badge.style.transform = "scale(1)";
+                }, 400);
+            }
+        });
+
+        xhr.open("GET", document.querySelector(".recap_url").value, true);
+        xhr.send(null);
     }
 
 };

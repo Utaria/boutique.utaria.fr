@@ -4,6 +4,7 @@ namespace App\Controller;
 use App;
 use App\Helper\Cart\SessionCart;
 use Core\Controller\Controller;
+use Core\Helper\Html;
 
 class PanierController extends Controller {
 
@@ -79,6 +80,17 @@ class PanierController extends Controller {
 		} else if ($cart->getTotal() < $shopCode->min_price) {
 		    $good = false;
 		    $errorMsg = "Commande min. de " . $shopCode->min_price . "€ requise";
+        } else if (!is_null($shopCode->usable_by)
+            && (is_null($cart->getUser()) || $shopCode->usable_by != $cart->getUser()->getId())) {
+		    $good = false;
+		    $link = "";
+
+		    if (empty($cart->getUser())) {
+		        $html = new Html();
+		        $link = $html->link("paiement/login/panier", "(Connexion)");
+            }
+
+		    $errorMsg = "Code promotionnel réservé $link";
         }
 
 		// Suppression des informations confidentielles

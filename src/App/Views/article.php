@@ -25,8 +25,11 @@
 
     <?php endforeach; ?>
 
+    <?php if (empty($articles)): ?>
+        <p class="center">Aucun article dans cette catégorie &nbsp;<i class="em em-alien"></i></p>
+    <?php endif; ?>
+
     <input type="hidden" class="action_url" value="<?= $Html->href('article/:id/addtocart') ?>">
+    <input type="hidden" class="recap_url" value="<?= $Html->href('panier/recap') ?>">
 
 </div>
-
-<?= $Html->js("articles") ?>

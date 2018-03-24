@@ -18,12 +18,14 @@ class PaiementController extends Controller {
 
 	protected $useTable = false;
 
-    public function login() {
+    public function login($params) {
         $error = null;
         $cart = SessionCart::getInstance();
 
+        $returnUrl = (!empty($params)) ? $params[0] : "commande/create";
+
         if ($cart->isUserConnected())
-            $this->redirect("commande/create");
+            $this->redirect($returnUrl);
 
         $error = null;
 
@@ -38,7 +40,7 @@ class PaiementController extends Controller {
 
             if ($authObj != null && !$authObj->error) {
                 $cart->logUser($authObj);
-                $this->redirect("commande/create");
+                $this->redirect($returnUrl);
             } else {
                 $prefix = "<i class='fa fa-arrow-right'></i>";
                 $error = $prefix . "Pseudo ou mot de passe incorrect.";

@@ -35,6 +35,7 @@ Panier.prototype = {
 		if (this.promoForm.querySelector("input").value !== "")
 			this.postPromoForm(this.promoForm);
 	},
+
 	postPromoForm: function(el) {
 		var self = this;
 		if (!self.canSendPromoReq) return false;
@@ -96,6 +97,7 @@ Panier.prototype = {
 
 		return false;
 	},
+
 	removePromoCode: function() {
 		// Mise à jour de la session
 		var xhr = this.newXMLHttpRequest();
@@ -122,7 +124,6 @@ Panier.prototype = {
 		this.updateTotal();
 	},
 
-
 	/* --------------------------- */
 	/* -- Sélecteur de quantité -- */
 	/* --------------------------- */
@@ -132,6 +133,7 @@ Panier.prototype = {
 		for (var i = 0; i < selectors.length; i++)
 			this.initQtySelector(selectors[i]);
 	},
+
 	initQtySelector: function(selector) {
 		var self = this;
 
@@ -170,6 +172,7 @@ Panier.prototype = {
 			self.updateSelector(sel, true);
 		});
 	},
+
 	updateSelector: function(selector, manual) {
 		var qty     = parseInt(selector.querySelector("span").innerHTML);
 		var minusEl = selector.querySelector(".btn-minus");
@@ -186,6 +189,7 @@ Panier.prototype = {
 				selector.parentNode.dataset.productId, qty
 			);
 	},
+
 	updateQtySession: function(productId, qty) {
 		var xhr  = this.newXMLHttpRequest();
 		var href = document.querySelector(".products").dataset.qtyHref;
@@ -194,7 +198,6 @@ Panier.prototype = {
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		xhr.send("product_id=" + productId + "&qty=" + qty);
 	},
-
 
 	/* ------------------------------ */
 	/* -- Suppression d'un produit -- */
@@ -242,7 +245,6 @@ Panier.prototype = {
 			});
 	},
 
-
 	/* --------------------------- */
 	/* -- Mise à jour du panier -- */
 	/* --------------------------- */
@@ -257,6 +259,7 @@ Panier.prototype = {
 		this.updateTotal();
 		this.updateHeader();
 	},
+
 	updateHeader: function() {
 		var btnHead     = document.querySelector(".cart-header");
 		var productList = document.querySelector(".cart-content .cart-products");
@@ -288,6 +291,7 @@ Panier.prototype = {
 			productList.appendChild(artEl);
 		}
 	},
+
 	updateTotal: function() {
 		var self         = this;
 		var totalTable   = document.querySelector("table.total");
@@ -354,6 +358,7 @@ Panier.prototype = {
 		
 		return xhr;
 	},
+
 	calcCartSize: function() {
 		var qtySpans = document.querySelectorAll("[qty-selector] span");
 		var total    = 0;
@@ -363,6 +368,7 @@ Panier.prototype = {
 
 		return total;
 	},
+
 	calcCartTotal: function() {
 		// Calcul du coût total du panier sans remise
 		var priceSpans = document.querySelectorAll(".c-price span");

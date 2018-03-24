@@ -26,6 +26,7 @@
 	<link rel="icon" type="image/png" href="<?= $Html->srcImg("favicon.png") ?>" />
 
 	<?= $Html->css("https://fonts.googleapis.com/css?family=Lato:400,700,900|Open+Sans:400,700,900") ?>
+    <?= $Html->css("https://afeld.github.io/emoji-css/emoji.css") ?>
 	<?= $Html->css("grid") ?>
 	<?= $Html->css("style") ?>
 	<?= $Html->css("boutique") ?>
@@ -144,9 +145,8 @@
 	<?= $Html->js("clipboard") ?>
 	<?= $Html->js("app") ?>
 	<?= $Html->js("boutique") ?>
-<?php if ($view_name == "panier"): ?>
-	<?= $Html->js("panier") ?>
-<?php endif; ?>
+    <?= $view_name == "panier" ? $Html->js("panier") : "\n" ?>
+    <?= substr($view_name, 0, 7) == "article" ? $Html->js("articles") : "\n" ?>
 
 </body>
 </html>

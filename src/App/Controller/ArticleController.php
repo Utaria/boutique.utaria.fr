@@ -10,7 +10,12 @@ class ArticleController extends Controller {
 
     public function survie() {
         $articles = $this->getTable()->findByCategory("survie");
-        $this->render("article.survie", compact('articles'));
+        $this->render("article", compact('articles'));
+    }
+
+    public function cosmetiques() {
+        $articles = $this->getTable()->findByCategory("cosmetiques");
+        $this->render("article", compact('articles'));
     }
 
     public function addtocart($params) {

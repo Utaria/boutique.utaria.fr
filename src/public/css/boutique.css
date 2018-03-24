@@ -524,14 +524,6 @@ table.products tbody tr td .cat {
     border-radius: 2px;
 }
 
-table.products tbody tr td .cat.booster {
-    background: #3498db;
-}
-
-table.products tbody tr td .cat.grade {
-    background: #f1c40f;
-}
-
 table.products tbody tr td input[type="number"] {
     height: 30px;
     background: #FFF;
@@ -680,6 +672,10 @@ table.products tbody tr td .btn.rm-btn:hover {
     color: #c0392b;
 }
 
+.basket-action-container .promo-form + span.error a {
+    color: #2980b9;
+}
+
 .basket-action-container table.total {
     width: 500px;
     float: right;
@@ -804,6 +800,379 @@ table.products tbody tr td .btn.rm-btn:hover {
     transform: scale(1.01);
     box-shadow: 0 3.5px 7px rgba(0,0,0,0.25), 0 2.5px 2.5px rgba(0,0,0,0.22);
 }
+
+/* ------------------------------- */
+/* ----   PAGES DES FORMULES  ---- */
+/* ------------------------------- */
+.pricing-wrapper {
+    width: 960px;
+    margin: 40px auto 0;
+}
+
+.pricing-table {
+    margin: 0 10px;
+    text-align: center;
+    width: 300px;
+    float: left;
+    font-family: "Open Sans", sans-serif;
+    -webkit-box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    -webkit-transition: all 0.25s ease;
+    -o-transition: all 0.25s ease;
+    transition: all 0.25s ease;
+}
+
+.pricing-table:hover {
+    -webkit-transform: scale(1.06);
+    -ms-transform: scale(1.06);
+    -o-transform: scale(1.06);
+    transform: scale(1.06);
+}
+
+.pricing-title {
+    color: #FFF;
+    background: #3498db;
+    padding: 20px 0;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.4);
+}
+
+.pricing-table.recommended .pricing-title {
+    background: #f1c40f;
+}
+
+.pricing-table.recommended .pricing-action {
+    background: #f1c40f;
+}
+
+.pricing-table .price {
+    background: #403e3d;
+    font-size: 3em;
+    font-weight: 700;
+    color: white;
+    padding: 20px 0;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.4);
+}
+
+.pricing-table .price sup {
+    font-size: 0.4em;
+    position: relative;
+    left: 5px;
+}
+
+.table-list {
+    list-style: none;
+    background: #FFF;
+    color: #403d3a;
+}
+
+.table-list li {
+    font-size: .8em;
+    font-weight: 700;
+    padding: 12px 8px;
+}
+
+.table-list li span {
+    font-weight: 400;
+}
+
+.table-list li span.ptitle {
+    font-weight: bold;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.6);
+    padding-left: 10px;
+}
+
+.table-list li span.unlimited {
+    color: #FFF;
+    background: #e95846;
+    font-size: 0.9em;
+    padding: 5px 7px;
+    display: inline-block;
+    -webkit-border-radius: 38px;
+    -moz-border-radius: 38px;
+    border-radius: 38px;
+}
+
+.table-list li:nth-child(2n) {
+    background: #F0F0F0;
+}
+
+.table-buy {
+    background: #FFF;
+    padding: 15px;
+    text-align: left;
+    overflow: hidden;
+}
+
+.table-buy p {
+    float: left;
+    color: #37353a;
+    font-weight: 700;
+    font-size: 1.8em;
+}
+
+.table-buy p sup {
+    font-size: 0.5em;
+    position: relative;
+    left: 5px;
+}
+
+.table-buy .pricing-action {
+    float: right;
+    color: #FFF;
+    background: #3498db;
+    padding: 10px 16px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    font-weight: 700;
+    font-size: .8em;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.4);
+    -webkit-transition: all 0.25s ease;
+    -o-transition: all 0.25s ease;
+    transition: all 0.25s ease;
+}
+
+.table-buy .pricing-action:hover {
+    background: #2980b9;
+}
+
+.recommended .table-buy .pricing-action:hover {
+    background: #eda900;
+}
+
+.creation-container .item-selector {
+    height: 500px;
+    background: #383838;
+    border-right: 20px solid #1A1A1A;
+    padding: 10px;
+}
+
+.creation-container .item-selector .category {
+    display: block;
+    position: relative;
+    left: -10px;
+    top: 10px;
+    width: calc(100% + 20px);
+    height: 40px;
+    line-height: 40px;
+    padding: 0 15px;
+    margin: 20px 0;
+
+    text-transform: uppercase;
+    font-size: .9em;
+    font-weight: bold;
+    color: #CCC;
+    background: rgba(0,0,0,0.2);
+    clear: both;
+}
+.creation-container .item-selector .category:first-child {
+    top: -10px;
+    margin: 0;
+}
+
+.creation-container .item-selector .item-wrapper {
+    display: block;
+    position: relative;
+    width: 50px;
+    height: 50px;
+    float: left;
+    margin: 5px;
+}
+.creation-container .item-selector .item-wrapper:before {
+    display: block;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    content: " ";
+    border: 3px dashed #999;
+
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.creation-container .item-selector .item-wrapper .item {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: #3498db;
+    z-index: 5;
+}
+.creation-container .item-selector .item-wrapper .item.draggable--mirror,
+.creation-container .item-selector .item-wrapper .item.draggable-source--is-dragging
+    { opacity: 0.4; }
+
+.creation-container .selection-container {
+    display: block;
+    position: relative;
+}
+
+.creation-container .deposit-container {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    text-align: center;
+    line-height: 300px;
+    color: #999999;
+    font-size: 1.4em;
+    font-family: "Lato", sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+
+    background: #FFFFFF;
+    border: 5px dashed #AAAAAA;
+    z-index: 3;
+}
+
+.creation-container .deposit-container.active {
+    background: #EFEFEF;
+    border-color: #2980b9;
+    color: #2980b9;
+}
+
+.creation-container .items {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 300px;
+}
+
+.creation-container .items .my-item {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    margin-bottom: 10px;
+
+    background: #DDDDDD;
+}
+
+.creation-container .items .my-item .name {
+    display: block;
+    position: relative;
+    padding: 0 20px;
+    width: 60%;
+    float: left;
+}
+
+.creation-container .items .my-item .qty-selector {
+    display: block;
+    position: relative;
+    width: 15%;
+    float: left;
+}
+
+.creation-container .btn {
+    display: inline-block;
+    position: relative;
+    height: 25px;
+    width: 25px;
+    top: 7.5px;
+    right: 15px;
+
+    text-align: center;
+    line-height: 25px;
+
+    font-size: .7em;
+    color: white;
+
+    transition: ease-out .2s;
+}
+
+.creation-container .btn.hidden {
+    opacity: 0;
+}
+
+.creation-container .btn.hidden:hover {
+    cursor: initial;
+}
+
+.creation-container .btn:hover {
+    cursor: pointer;
+}
+
+.creation-container .btn.btn-minus,
+.creation-container .btn.btn-plus {
+    right: initial;
+    top: initial;
+    background: #9b59b6;
+    font-size: .6em;
+}
+
+.creation-container .btn.btn-plus {
+    left: 10px;
+}
+
+.creation-container .btn.btn-minus {
+    right: 10px;
+}
+
+.creation-container .btn.btn-minus:hover,
+.creation-container .btn.btn-plus:hover {
+    background: #8e44ad;
+}
+
+.creation-container .items .my-item .price {
+    display: block;
+    position: relative;
+    width: 15%;
+    float: left;
+    text-align: center;
+}
+
+.creation-container .items .my-item .remove-ctn {
+    display: block;
+    position: relative;
+    width: 10%;
+    float: left;
+    text-align: center;
+    color: #e74c3c;
+    font-size: 1em;
+}
+
+.creation-container .items .my-item svg.remove {
+    transition: all ease-in-out .2s;
+}
+
+.creation-container .items .my-item svg.remove:hover {
+    transform: scale(1.2) rotate(5deg);
+    cursor: pointer;
+    color: #c0392b;
+}
+
+.creation-container .my-item.template {
+    display: none;
+}
+
+.summary-container {
+    display: block;
+    position: relative;
+    background: #EEEEEE;
+    border: 5px solid #DDDDDD;
+    height: 150px;
+    margin: 20px 0;
+}
+
+.summary-container table.summary {
+    float: right;
+    margin: 15px;
+    border-spacing: 50px 10px;
+}
+
+.summary-container table.summary tr td:first-child {
+    padding-right: 30px;
+    border-right: 3px solid #AAAAAA;
+}
+
 
 /* ------------------------------ */
 /* ----   PAGES DE PAIEMENT  ---- */
