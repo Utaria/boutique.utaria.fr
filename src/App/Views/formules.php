@@ -5,63 +5,40 @@
     </div>
 </div>
 
+<?php
+$colors = ["#ffb300", "#3399FF", "#ff00e9"];
+$cosmetiques = [3, 10, 50];
+?>
+
 <div class="wrap-inner formules-container col-group content">
     <div class="pricing-wrapper">
-        <div class="pricing-table">
-            <h3 class="pricing-title">Baron</h3>
-            <div class="price">€5<sup>/ mois</sup></div>
+        <?php $i = 0; foreach ($formules as $formule): ?>
+        <div class="pricing-table<?= ($i == 1) ? " recommended" : "" ?>">
+            <h3 class="pricing-title"><?= $formule->name ?></h3>
+            <div class="price">€<?= $formule->price ?><sup>/ mois</sup></div>
 
             <ul class="table-list">
-                <li>Personnalise <span>ta formule <i class="em em---1" style="position:relative;left:5px;top:-2px"></i></span></li>
-                <li>Cosmétiques <span>inédits</span> !</li>
-                <li><span>Accès</span> privilège</li>
-                <li>5% <span>de réduction sur les articles</span></li>
-                <li>Soutient UTARIA<br/><i class="em em-heart"></i></li>
-                <li>Titre <span class="ptitle" style="color:#FFFF55">[BARON]</span></li>
+                <li>
+                    Personnalise <span>ta formule</span><br>
+                    <?php for ($j = 0; $j <= $i; $j++): ?>
+                        <i class="em em---1"></i>
+                    <?php endfor; ?>
+                </li>
+                <li><?= $cosmetiques[$i] ?> <span>cosmétiques exclusifs</span></li>
+                <li><span>Slots</span> réservés</li>
+                <li>Réduction -<?= $formule->reduction ?>%<br><span>sur les produits</span></li>
+                <li style="color:#d9534f">Soutien à UTARIA<br/>
+                    <?php for ($j = 0; $j <= $i; $j++): ?>
+                        <i class="fas fa-heart"></i>
+                    <?php endfor; ?>
+                </li>
+                <li>Titre <span class="ptitle" style="color:<?= $colors[$i] ?>">[<?= strtoupper($formule->title_unlock) ?>]</span></li>
             </ul>
-            <!-- Contratar / Comprar -->
             <div class="table-buy">
-                <p>€5<sup>/ mois</sup></p>
-                <a href="<?= $Html->href("formule/creation/5"); ?>" class="pricing-action">Prendre</a>
+                <p>€<?= $formule->price ?><sup>/ mois</sup></p>
+                <a href="<?= $Html->href("formule/creation"); ?>" class="pricing-action">Prendre</a>
             </div>
         </div>
-
-        <div class="pricing-table recommended">
-            <h3 class="pricing-title">Compte</h3>
-            <div class="price">€10<sup>/ mois</sup></div>
-
-            <ul class="table-list">
-                <li>Personnalise <span>ta formule <i class="em em---1" style="position:relative;left:5px;top:-2px"></i></span></li>
-                <li>Cosmétiques <span>inédits</span> !!</li>
-                <li><span>Accès</span> privilège</li>
-                <li>10% <span>de réduction sur les articles</span></li>
-                <li>Soutient UTARIA<br/><i class="em em-heart"></i><i class="em em-heart"></i></li>
-                <li>Titre <span class="ptitle" style="color:#00AAAA">[COMPTE]</span></li>
-            </ul>
-            <!-- Contratar / Comprar -->
-            <div class="table-buy">
-                <p>€10<sup>/ mois</sup></p>
-                <a href="<?= $Html->href("formule/creation/10"); ?>" class="pricing-action">Prendre</a>
-            </div>
-        </div>
-
-        <div class="pricing-table">
-            <h3 class="pricing-title">Duc</h3>
-            <div class="price">€20<sup>/ mois</sup></div>
-
-            <ul class="table-list">
-                <li>Personnalise <span>ta formule <i class="em em---1" style="position:relative;left:5px;top:-2px"></i></span></li>
-                <li>TOUS <span>les cosmétiques débloqués</span></li>
-                <li><span>Accès</span> privilège</li>
-                <li>15% <span>de réduction sur les articles</span></li>
-                <li>Soutient UTARIA<br/><i class="em em-heart"></i><i class="em em-heart"></i><i class="em em-heart"></i></li>
-                <li>Titre <span class="ptitle" style="color:#AA00AA">[DUC]</span></li>
-            </ul>
-            <!-- Contratar / Comprar -->
-            <div class="table-buy">
-                <p>€20<sup>/ mois</sup></p>
-                <a href="<?= $Html->href("formule/creation/20"); ?>" class="pricing-action">Prendre</a>
-            </div>
-        </div>
+        <?php $i++; endforeach; ?>
     </div>
 </div>

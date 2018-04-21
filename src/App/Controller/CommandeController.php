@@ -43,13 +43,17 @@ class CommandeController extends Controller {
 		$orderId = $this->getTable()->getLastInsertId();
 
 		// On enregistre les produits liés à la commande en base de données.
-        foreach ($cart->getArticles() as $article)
+        foreach ($cart->getArticles() as $article) {
+            $formule = $cart->isFormule($article);
+
             App::getInstance()->getTable("CommandeArticle")->insert(array(
-                "buyed_at"    => $article->price,
-                "qty"         => $article->qty,
-                "article_id"  => $article->id,
-                "commande_id" => $orderId
+                "buyed_at"            => $article->price,
+                "qty"                 => $article->qty,
+                "article_id"          => (!$formule) ? $article->id : null,
+                "formule_creation_id" => ( $formule) ? $article->id : null,
+                "commande_id"         => $orderId
             ));
+        }
 
 		// On supprime le panier courant.
         $cart->destroy();

@@ -39,9 +39,10 @@ class SessionCart {
 	public function addArticle($article) {
 	    // Récupérations nécessaires ...
         if (empty($_SESSION["shopcart"]))
-            $_SESSION["shopcart"] = array("products" => array(), "promocode" => null);
+            $_SESSION["shopcart"] = array("products" => array(), "formules" => array(), "promocode" => null);
 
         $products = $_SESSION["shopcart"]["products"];
+
         $key = "p_" . $article->id;
         $baseQty = isset($products[$key]) ? $products[$key] : 0;
 
@@ -52,6 +53,10 @@ class SessionCart {
         // ... puis ajout !
         $this->articles[] = $article;
         $_SESSION["shopcart"]["products"][$key] = $baseQty + 1;
+
+        // Cas spécifique d'une formule
+        if ($article instanceof App\Entity\FormuleCreationEntity)
+            $_SESSION["shopcart"]["formules"][] = $article->id;
 
         return true;
     }
@@ -72,6 +77,14 @@ class SessionCart {
 	public function isEmpty() {
 		return empty($this->articles);
 	}
+
+    /**
+     * @param $article App\Entity\ShopArticleEntity
+     * @return bool Vrai si l'article est une formule, faux sinon.
+     */
+	public function isFormule($article) {
+	    return in_array($article->id, $this->cache["formules"]);
+    }
 
 	public function getTotal() {
 		$c = 0;
@@ -147,6 +160,7 @@ class SessionCart {
 		if (empty($this->cache)) {
 			$this->cache = array(
 				"products"  => array(),
+				"formules"  => array(),
 				"promocode" => null
 			);
 		}
@@ -158,10 +172,16 @@ class SessionCart {
 
 		$this->articles = array();
 		$table          = App::getInstance()->getTable("shopArticle");
+		$formuleTable   = App::getInstance()->getTable("FormuleCreation");
 
 		foreach ($this->cache["products"] as $pId => $nb) {
-			$id      = str_replace("p_", "", $pId);
-			$article = $table->find($id);
+			$id = str_replace("p_", "", $pId);
+
+			if (in_array($id, $this->cache["formules"]))
+			    $article = $formuleTable->find($id);
+			else
+			    $article = $table->find($id);
+
 			if (empty($article)) continue;
 
 			$article->qty   = $nb;

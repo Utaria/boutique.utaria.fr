@@ -3,7 +3,7 @@ namespace App\Entity;
 
 use Core\Entity\Entity;
 
-class ShopPromoEntity extends Entity {
+class FormuleEntity extends Entity {
 
 
 

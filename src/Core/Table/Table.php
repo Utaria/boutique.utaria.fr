@@ -1,11 +1,15 @@
 <?php
 namespace Core\Table;
 
+use Core\Database\MySQLDatabase;
 use core\Database\Query;
 
 class Table {
 
 	protected $table;
+    /**
+     * @var MySQLDatabase
+     */
 	protected $db;
 
 
@@ -91,4 +95,3 @@ class Table {
 	}
 
 }
-?>

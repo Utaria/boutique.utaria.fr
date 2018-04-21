@@ -474,11 +474,11 @@ table.products tbody tr:nth-child(2n) {
 }
 
 table.products tbody tr td {
-    height: 40px;
+    padding: 10px 0;
 }
 
 table.products tbody tr td:first-child {
-    padding-left: 15px;
+    padding-left: 30px;
 }
 
 table.products tbody tr td:last-child {
@@ -496,6 +496,24 @@ table.products tbody tr td:last-child svg.remove:hover {
     transform: scale(1.2) rotate(5deg);
     cursor: pointer;
     color: #c0392b;
+}
+
+table.products ul.sub-articles {
+    display: block;
+    position: relative;
+    padding: 10px 40px;
+    list-style-type: none;
+}
+
+table.products ul.sub-articles li:before {
+    background-color: #2e3842;
+    border-radius: 50%;
+    content: "";
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 2px;
+    height: 10px;
+    width: 10px;
 }
 
 table.products tbody tr td a {
@@ -772,7 +790,8 @@ table.products tbody tr td .btn.rm-btn:hover {
 }
 
 .basket-container .submit,
-.payment-container .submit {
+.payment-container .submit,
+.creation-container .submit {
     display: block;
     position: relative;
 
@@ -793,7 +812,8 @@ table.products tbody tr td .btn.rm-btn:hover {
 }
 
 .basket-container .submit:hover,
-.payment-container .submit:hover {
+.payment-container .submit:hover,
+.creation-container .submit:hover {
     cursor: pointer;
     background: #219953;
 
@@ -879,8 +899,7 @@ table.products tbody tr td .btn.rm-btn:hover {
 
 .table-list li span.ptitle {
     font-weight: bold;
-    text-shadow: 0 1px 1px rgba(0,0,0,0.6);
-    padding-left: 10px;
+    padding-left: 2px;
 }
 
 .table-list li span.unlimited {
@@ -1001,6 +1020,7 @@ table.products tbody tr td .btn.rm-btn:hover {
     background: #3498db;
     z-index: 5;
 }
+.creation-container .item-selector .item-wrapper .item:hover { background: #2980b9; cursor: -webkit-grab; cursor: -moz-grab; cursor: grab }
 .creation-container .item-selector .item-wrapper .item.draggable--mirror,
 .creation-container .item-selector .item-wrapper .item.draggable-source--is-dragging
     { opacity: 0.4; }
@@ -1010,7 +1030,8 @@ table.products tbody tr td .btn.rm-btn:hover {
     position: relative;
 }
 
-.creation-container .deposit-container {
+.creation-container .deposit-container,
+.creation-container .intro-container {
     display: none;
     position: absolute;
     width: 100%;
@@ -1031,6 +1052,13 @@ table.products tbody tr td .btn.rm-btn:hover {
     border: 5px dashed #AAAAAA;
     z-index: 3;
 }
+.creation-container .intro-container {
+    display: block;
+    z-index: 2;
+    border-style: solid;
+    border-color: #DDD;
+}
+
 
 .creation-container .deposit-container.active {
     background: #EFEFEF;
@@ -1071,7 +1099,7 @@ table.products tbody tr td .btn.rm-btn:hover {
     float: left;
 }
 
-.creation-container .btn {
+.creation-container .items .my-item .btn {
     display: inline-block;
     position: relative;
     height: 25px;
@@ -1088,36 +1116,36 @@ table.products tbody tr td .btn.rm-btn:hover {
     transition: ease-out .2s;
 }
 
-.creation-container .btn.hidden {
+.creation-container .items .my-item .btn.hidden {
     opacity: 0;
 }
 
-.creation-container .btn.hidden:hover {
+.creation-container .items .my-item .btn.hidden:hover {
     cursor: initial;
 }
 
-.creation-container .btn:hover {
+.creation-container .items .my-item .btn:hover {
     cursor: pointer;
 }
 
-.creation-container .btn.btn-minus,
-.creation-container .btn.btn-plus {
+.creation-container .items .my-item .btn.btn-minus,
+.creation-container .items .my-item .btn.btn-plus {
     right: initial;
     top: initial;
     background: #9b59b6;
     font-size: .6em;
 }
 
-.creation-container .btn.btn-plus {
+.creation-container .items .my-item .btn.btn-plus {
     left: 10px;
 }
 
-.creation-container .btn.btn-minus {
+.creation-container .items .my-item .btn.btn-minus {
     right: 10px;
 }
 
-.creation-container .btn.btn-minus:hover,
-.creation-container .btn.btn-plus:hover {
+.creation-container .items .my-item .btn.btn-minus:hover,
+.creation-container .items .my-item .btn.btn-plus:hover {
     background: #8e44ad;
 }
 
@@ -1162,9 +1190,85 @@ table.products tbody tr td .btn.rm-btn:hover {
     margin: 20px 0;
 }
 
+.summary-container .progress-formule {
+    display: block;
+    position: relative;
+    float: left;
+    width: 55%;
+    height: 100%;
+}
+
+.summary-container .progress-bar-container {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 20px;
+    margin-top: 30px;
+
+    background: #DDD;
+    border-radius: 5px;
+}
+
+.summary-container .progress-bar-container .progress-bar {
+    display: block;
+    position: relative;
+    width: 1%;
+    height: 100%;
+
+    background: #27ae60;
+    border-radius: 5px;
+    transition: width ease-in-out .2s;
+}
+
+.summary-container .progress-formule .meta .step {
+    display: block;
+    position: absolute;
+    width: 70px;
+    margin-top: 20px;
+
+    background: #f1c40f;
+    border-radius: 5px;
+    padding: 5px;
+    text-align: center;
+
+    font-size: .8em;
+    transition: all ease-out .5s;
+}
+
+.summary-container .progress-formule .meta .step:before {
+    bottom: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(213, 206, 0, 0);
+    border-bottom-color: #f1c40f;
+    border-width: 10px;
+    margin-left: -10px;
+}
+
+.summary-container .progress-formule .meta .step.active        { background: #8e44ad; transform: scale(1.1); color: white }
+.summary-container .progress-formule .meta .step.active:before { border-bottom-color: #8e44ad }
+
+.summary-container .progress-formule .meta .step:nth-child(1) { left:  -5px; }
+.summary-container .progress-formule .meta .step:nth-child(2) { left: 160px; }
+.summary-container .progress-formule .meta .step:nth-child(3) { left: 490px; }
+
+.summary-container .progress-formule .meta .step .price {
+    display: block;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
 .summary-container table.summary {
-    float: right;
-    margin: 15px;
+    display: block;
+    position: relative;
+    float: left;
+    width: 45%;
+    padding: 15px 10px;
     border-spacing: 50px 10px;
 }
 
@@ -1173,6 +1277,16 @@ table.products tbody tr td .btn.rm-btn:hover {
     border-right: 3px solid #AAAAAA;
 }
 
+.summary-container table.summary tr:nth-child(2) {
+    font-weight: bold;
+}
+
+.creation-container .submit {
+    display: none;
+    width: 250px;
+    text-align: center;
+    line-height: 50px;
+}
 
 /* ------------------------------ */
 /* ----   PAGES DE PAIEMENT  ---- */

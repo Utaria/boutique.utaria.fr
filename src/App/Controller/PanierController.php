@@ -11,28 +11,13 @@ class PanierController extends Controller {
 	protected $useTable = false;
 
 	public function index() {
-		session_start();
+		$cart = SessionCart::getInstance();
 
-		$articles    = array();
-		$table       = App::getInstance()->getTable("shopArticle");
-		$sessionCart = isset($_SESSION["shopcart"]) ? $_SESSION["shopcart"] : array('products' => array());
-		$cartTotal   = 0;
+		$articles = $cart->getArticles();
+		$total = $cart->getTotal();
 
-		foreach ($sessionCart["products"] as $pId => $nb) {
-			$id      = str_replace("p_", "", $pId);
-			$article = $table->find($id);
-			if (empty($article)) continue;
-			
-			$article->qty   = $nb;
-			$article->price = number_format($article->price, 2);
-			$article->cartPrice = number_format($article->price * $article->qty, 2);
-
-			$articles[]  = $article;
-			$cartTotal  += $article->cartPrice;
-		}
-
-		$cartTotal = number_format($cartTotal, 2);
-		$promoCode = isset($_SESSION["shopcart"]["promocode"]) ? $_SESSION["shopcart"]["promocode"] : null;
+		$cartTotal = number_format($total, 2);
+		$promoCode = $cart->getPromoCode();
 
 		$this->render("panier", compact("articles", "cartTotal", "promoCode"));
 	}
@@ -65,6 +50,9 @@ class PanierController extends Controller {
 		}
 
 		$cart     = SessionCart::getInstance();
+        /**
+         * @var $table App\Table\ShopPromoTable
+         */
 		$table    = App::getInstance()->getTable("ShopPromo");
 		$shopCode = $table->findByCode($code);
 
@@ -102,7 +90,12 @@ class PanierController extends Controller {
 		if ($good)
 			$cart->setPromoCode($shopCode->code);
 
-		die(json_encode(array("good" => $good, "code" => $shopCode, "error_msg" => $errorMsg)));
+		$this->setResponseType("application/json");
+		echo json_encode(array(
+		    "good" => $good,
+            "code" => $shopCode,
+            "error_msg" => $errorMsg
+        ));
 	}
 
 	public function changeqty() {
@@ -125,7 +118,7 @@ class PanierController extends Controller {
 		if ($qty > 0)
 			$_SESSION["shopcart"]["products"]["p_$pId"] = $qty;
 		else
-			unset($_SESSION["shopcart"]["products"]["p_$pId"]);
+            unset($_SESSION["shopcart"]["products"]["p_$pId"]);
 
 		die("good");
 	}

@@ -119,12 +119,12 @@
 
 			<div class="col-3">
 				<ul class="container-pagination">
-					<li><?= $Html->link("blog", "Suivre notre avancement") ?></li>
-					<li><?= $Html->link("voter", "Votez pour nous") ?></li>
-					<li><?= $Html->link("jouer", "Nous rejoindre") ?></li>
+					<li><?= $Html->link("paiement", "Poursuivre mon paiement") ?></li>
+					<li><?= $Html->link("commandes", "Mes commandes") ?></li>
 					<!--<li><a href="#">Statistiques</a></li>-->
-					<li><a href="mailto:contact@utaria.fr">Nous contacter</a></li>
-				</ul>
+                    <li><a href="mailto:contact@utaria.fr">Nous contacter</a></li>
+                    <li><?= $Html->link("faq", "FAQ") ?></li>
+                </ul>
 			</div>
 
 			<div class="col-3">

@@ -1,7 +1,7 @@
 <div class="content-top-group">
     <div class="wrap-inner col-group">
         <h2><b>Mon panier</b></h2>
-        <p>N'oubliez pas de le reposez près de la caisse une fois utilisé.</p>
+        <p>N'oubliez pas de le reposer près de la caisse une fois utilisé.</p>
     </div>
 </div>
 
@@ -22,8 +22,18 @@
 			<?php foreach ($articles as $article): ?>
 				<tr data-product-id="<?= $article->id ?>">
 					<td>
-						<span class="cat <?= $article->type ?>"><?= ucfirst($article->type) ?></span>
-						<a href="#" class="name"><?= $article->name ?></a>
+						<?= $article->name ?>
+                        <?php
+                            $subArticles = $article->getSubArticles();
+                            if (!empty($subArticles)) {
+                                echo '<ul class="sub-articles">';
+
+                                foreach ($subArticles as $subArticle)
+                                    echo '<li>' . $subArticle->qty . ' ' . strtolower($subArticle->article->name) . '</li>';
+
+                                echo '</ul>';
+                            }
+                        ?>
 					</td>
 					<td class="u-price c">
 						<span><?= $article->price ?></span> €

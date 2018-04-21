@@ -23,7 +23,7 @@ class CommandeEntity extends Entity {
     }
 
     public function getArticleList() {
-        return App::getInstance()->getTable("CommandeArticle")->findByCommandeId($this->id, true);
+        return App::getInstance()->getTable("CommandeArticle")->findByCommandeId($this->id);
     }
 
     public function getPromoReduction() {

@@ -10,5 +10,8 @@ use Core\Entity\Entity;
  */
 class ShopArticleEntity extends Entity {
 
+    public function getSubArticles() {
+        return array();
+    }
 
 }
